@@ -1,0 +1,22 @@
+#!/bin/bash
+
+local_bin_dir="$HOME/.local/bin"
+file_relative_path=$1
+current_dir=$(pwd)
+
+# Get the absolute path
+absolute_path=$(realpath "$current_dir/$file_relative_path")
+
+# Check if the directory already exists
+if [ ! -d "$local_bin_dir" ]; then
+    echo "Creating $local_bin_dir directory..."
+    mkdir -p "$local_bin_dir"
+    echo "Directory created."
+else
+    echo "$local_bin_dir directory already exists."
+fi
+
+
+echo "Making symbolic link for $absolute_path in $local_bin_dir"
+
+ln -s $absolute_path $local_bin_dir
